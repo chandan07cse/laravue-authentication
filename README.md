@@ -13,7 +13,8 @@ Now install the initial frontend dependencies by running the following command
 ```
 npm install
 ```
-If you are using laravel valet then run from browser laravueauth. If other than that run from terminal
+If you are using laravel valet then run from browser laravueauth.test/
+If other than that run from terminal
 ```
 php artisan serve
 ```
