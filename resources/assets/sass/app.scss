@@ -1,0 +1,33 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.flash{
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: -69px;
+  margin-top: 5%;
+  padding: 15px;
+  border-radius: 2px;
+  &__success{
+    background: #a5d6a7;
+    border:1px solid #81c784;
+    color: #1b5e20;
+  }
+  &__error{
+
+    border: 1px solid #e57373;
+    color: #b71c1c;
+    text-align:center;
+  }
+
+}
+.has-error{
+  color: darkred;
+}
