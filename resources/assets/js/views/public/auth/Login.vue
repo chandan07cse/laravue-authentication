@@ -1,5 +1,8 @@
 <template>
-    <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div>
+        <menu-section></menu-section>
+        <notify-section></notify-section>
+        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info" >
             <div class="panel-heading">
                 <div class="panel-title">Sign In</div>
@@ -23,17 +26,17 @@
                         </div>
                         <small class="has-error" v-if="error.password">{{error.password[0]}}</small>
                     </div>
-                    <div class="input-group">
-                        <div class="checkbox">
-                            <label>
-                                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-                            </label>
-                        </div>
-                    </div>
+                    <!--<div class="input-group">-->
+                        <!--<div class="checkbox">-->
+                            <!--<label>-->
+                                <!--<input id="login-remember" type="checkbox" name="remember" value="1"> Remember me-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div style="margin-top:10px" class="form-group">
                         <!-- Button -->
                         <div class="col-sm-12 controls">
-                            <button id="btn-login" class="btn btn-success">Login</button>
+                            <button :disabled="isProcessing" id="btn-login" class="btn btn-success">Login</button>
                         </div>
                     </div>
                 </form>
@@ -50,13 +53,22 @@
             </div>
         </div>
     </div>
-
+        <footer-section></footer-section>
+    </div>
 </template>
 <script>
-    import {post} from '../../helpers/api'
-    import Flash from '../../helpers/flash'
-    import Auth from '../../store/auth'
+    import {Menu, Notify, Footer} from '../'
+    import {post} from '../../../helpers/api'
+    import Flash from '../../../helpers/flash'
+    import Auth from '../../../store/auth'
+    import Storage from '../../../store/storage'
+
     export default{
+        components:{
+            'menu-section': Menu,
+            'notify-section': Notify,
+            'footer-section': Footer
+        },
             data(){
                 return {
                     form:{
@@ -64,9 +76,18 @@
                         password:null
                     },
                     error:{},
-                    isProcessing: false
+                    isProcessing: false,
+                    flash: Flash.state
                 }
             },
+        created(){
+                if(Storage.get('notify_mail_verification'))
+                    Flash.setSuccess(Storage.get('notify_mail_verification'));
+                else if(Storage.get('mail_verification_status'))
+                    Flash.setError(Storage.get('mail_verification_status'));
+                else if(Storage.get('password_reset_status'))
+                    Flash.setSuccess(Storage.get('password_reset_status'));
+        },
         methods:{
                 login(){
                     this.isProcessing = true;
@@ -76,7 +97,7 @@
                             if(response.data.authenticated){
                                 Auth.set(response.data.user_id,response.data.api_token)
                                 Flash.setSuccess('Successfully Logged In!')
-                                this.$router.push('/dashboard')
+                                this.$router.push('/admin/dashboard')
                             }
                         })
                         .catch((errors)=>{
@@ -86,7 +107,6 @@
                                     this.error={}
                                     Flash.setError(errors.response.data.wrong[0])
                                 }
-
                             }
                             this.isProcessing = false
                         })

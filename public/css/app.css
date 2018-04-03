@@ -8350,6 +8350,22 @@ button.close {
   }
 }
 
+body {
+  background: #fff !important;
+}
+
+.navbar {
+  background-color: #41b883;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+}
+
+.container {
+  margin-top: 10px;
+}
+
 .flash {
   width: 50%;
   margin: 0 auto;

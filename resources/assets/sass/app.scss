@@ -7,7 +7,18 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
+body{
+  background: #fff !important;
+}
+.navbar{
+  background-color: rgb(65, 184, 131);
+}
+.navbar-default .navbar-nav > li > a {
+  color: #fff;
+}
+.container{
+  margin-top:10px;
+}
 .flash{
   width: 50%;
   margin: 0 auto;

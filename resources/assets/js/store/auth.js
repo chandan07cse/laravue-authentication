@@ -16,6 +16,13 @@ export default {
         localStorage.removeItem('user_id')
         localStorage.removeItem('api_token')
         this.initialize()
+    },
+    check(){
+        return !!(this.state.api_token && this.state.user_id)
+        // if(this.state.api_token && this.state.user_id)
+        //     return true
+        // else
+        //     return false
     }
 
 }

@@ -7,7 +7,7 @@ export default {
         this.state.success = message
         setTimeout(()=>{
             this.removeSuccess()
-        },3000)
+        },10000)
     },
     setError(message){
         this.state.error = message
