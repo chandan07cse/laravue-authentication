@@ -329,7 +329,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
                             <td class="content-block">
-                                <span class="apple-link">Copyright &copy; {{\Carbon\Carbon::now()->year}}</span>
+                                <span class="apple-link">Copyright &copy; {{\Carbon\Carbon::now()->year}} | Md. Ainul Moin Noor</span>
                                 <br> <a href="https://github.com/chandan07cse/laravue-authentication" class="navbar-btn btn-danger btn pull-right">
                                     <span class="glyphicon glyphicon-tag"></span>  Github Repository</a>
                             </td>
