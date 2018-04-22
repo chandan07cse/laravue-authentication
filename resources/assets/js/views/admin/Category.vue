@@ -1,7 +1,6 @@
 <template>
     <div>
         <menu-section></menu-section>
-        <notification-section></notification-section>
         <div id="message">
             {{message}}
         </div>
@@ -9,18 +8,15 @@
     </div>
 </template>
 <script>
-    import {Menu, Notify, Footer} from './'
-    import Flash from '../../helpers/flash'
+    import {Menu, Footer} from './'
     export default{
         components:{
             'menu-section': Menu,
-            'notification-section':Notify,
             'footer-section': Footer
         },
         data(){
             return{
-                message:"Category Page",
-                flash: Flash.state
+                message:"Category Page"
             }
         }
     }

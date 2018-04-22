@@ -1,7 +1,6 @@
 <template>
     <div>
         <menu-section></menu-section>
-        <notify-section></notify-section>
         <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info" >
             <div class="panel-heading">
@@ -57,16 +56,14 @@
     </div>
 </template>
 <script>
-    import {Menu, Notify, Footer} from '../'
+    import {Menu, Footer} from '../'
     import {post} from '../../../helpers/api'
-    import Flash from '../../../helpers/flash'
     import Auth from '../../../store/auth'
-    import Storage from '../../../store/storage'
+    import Swal from 'sweetalert2'
 
     export default{
         components:{
             'menu-section': Menu,
-            'notify-section': Notify,
             'footer-section': Footer
         },
             data(){
@@ -77,17 +74,8 @@
                     },
                     error:{},
                     isProcessing: false,
-                    flash: Flash.state
                 }
             },
-        created(){
-                if(Storage.get('notify_mail_verification'))
-                    Flash.setSuccess(Storage.get('notify_mail_verification'));
-                else if(Storage.get('mail_verification_status'))
-                    Flash.setError(Storage.get('mail_verification_status'));
-                else if(Storage.get('password_reset_status'))
-                    Flash.setSuccess(Storage.get('password_reset_status'));
-        },
         methods:{
                 login(){
                     this.isProcessing = true;
@@ -96,7 +84,6 @@
                         .then((response)=>{
                             if(response.data.authenticated){
                                 Auth.set(response.data.user_id,response.data.api_token)
-                                Flash.setSuccess('Successfully Logged In!')
                                 this.$router.push('/admin/dashboard')
                             }
                         })
@@ -105,7 +92,11 @@
                                 this.error = errors.response.data.errors
                                 if(errors.response.data.wrong){
                                     this.error={}
-                                    Flash.setError(errors.response.data.wrong[0])
+                                    Swal(
+                                        'Oops',
+                                        errors.response.data.wrong[0],
+                                        'error'
+                                    );
                                 }
                             }
                             this.isProcessing = false

@@ -1,7 +1,6 @@
 <template>
     <div>
         <menu-section></menu-section>
-        <notify-section></notify-section>
         <div id="message">
             {{message}}
         </div>
@@ -9,11 +8,10 @@
     </div>
 </template>
 <script>
-    import { Menu,Notify, Footer } from './'
+    import { Menu,Footer } from './'
     export default {
         components:{
             'menu-section': Menu,
-            'notify-section': Notify,
             'footer-section': Footer
         },
         data(){

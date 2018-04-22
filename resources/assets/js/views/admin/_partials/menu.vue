@@ -26,7 +26,6 @@
 </template>
 <script>
 import Auth from '../../../store/auth'
-import Flash from '../../../helpers/flash'
 import { post } from '../../../helpers/api'
 export default{
     methods:{
@@ -36,7 +35,6 @@ export default{
                     console.log(response)
                     if(response.data.logged_out){
                         Auth.remove()
-                        Flash.setSuccess('Logged Out Successfully')
                         this.$router.push('/login')
                     }
                 })

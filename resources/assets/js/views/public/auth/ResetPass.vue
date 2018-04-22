@@ -77,7 +77,7 @@
                    Swal(
                        'Bad Attempt!',
                        'Token Expired',
-                       'danger'
+                       'error'
                    );
                })
         },
