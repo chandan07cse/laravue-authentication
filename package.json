@@ -17,6 +17,7 @@
     "dependencies": {
         "axios": "^0.17.1",
         "jquery": "^3.2.1",
+        "sweetalert2": "^7.19.1",
         "vue": "^2.5.13",
         "vue-router": "^3.0.1"
     }

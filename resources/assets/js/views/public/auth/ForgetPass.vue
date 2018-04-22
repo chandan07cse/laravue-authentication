@@ -1,7 +1,6 @@
 <template>
     <div>
         <menu-section></menu-section>
-        <notify-section></notify-section>
         <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info" >
                 <div class="panel-heading">
@@ -32,13 +31,12 @@
     </div>
 </template>
 <script>
-    import {Menu,Notify,Footer} from '../'
+    import {Menu,Footer} from '../'
     import { post } from '../../../helpers/api'
-    import Flash from '../../../helpers/flash'
+    import Swal from 'sweetalert2'
     export default{
         components:{
             'menu-section':Menu,
-            'notify-section':Notify,
             'footer-section': Footer
         },
         data(){
@@ -47,8 +45,7 @@
                     email:null,
                 },
                 isProcessing:false,
-                error:{},
-                flash: Flash.state
+                error:{}
             }
         },
         methods:{
@@ -58,15 +55,20 @@
                     .then((response)=>{
                         if(response.data.sending_email)
                         {
-                            Flash.setSuccess("Please Check Your Email");
+                            Swal(
+                                'Reset',
+                                'Please Check Your Email',
+                                'question'
+                            );
                             this.error = {};
+                            this.form.email = null;
+
                         }
                         this.isProcessing = false;
                     })
                     .catch((errors)=>{
                         if(errors.response.status === 422)
                             this.error = errors.response.data.errors;
-
                         this.isProcessing = false;
                     })
             }

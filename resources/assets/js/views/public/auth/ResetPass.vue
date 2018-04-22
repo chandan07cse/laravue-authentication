@@ -1,7 +1,6 @@
 <template>
     <div>
         <menu-section></menu-section>
-        <notify-section></notify-section>
         <div id="loginbox" v-if="show" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info" >
                 <div class="panel-heading">
@@ -40,13 +39,11 @@
 </template>
 <script>
    import {post} from '../../../helpers/api'
-   import Storage from '../../../store/storage'
-   import Flash from '../../../helpers/flash'
-   import {Menu,Notify,Footer} from '../'
+   import {Menu,Footer} from '../'
+   import Swal from 'sweetalert2'
     export default{
        components:{
          'menu-section': Menu,
-         'notify-section': Notify,
          'footer-section': Footer
        },
        data(){
@@ -76,7 +73,12 @@
                })
                .catch((errors)=>{
                  if(errors.response.status === 404)
-                     Flash.setError("Bad Attempt!")
+//                     Flash.setError("Bad Attempt!");
+                   Swal(
+                       'Bad Attempt!',
+                       'Token Expired',
+                       'danger'
+                   );
                })
         },
         methods:{
@@ -86,7 +88,11 @@
                     .then((response)=>{
                        if(response.data.reset){
                            this.$router.push('/login');
-                           Storage.set('password_reset_status','Your Password Changed Successfully')
+                           Swal(
+                               'Great!',
+                               'Your Password Changed Successfully',
+                               'success'
+                           )
                        }
                     })
                     .catch((err)=>{

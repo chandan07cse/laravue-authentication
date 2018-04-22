@@ -1,7 +1,7 @@
 <template></template>
 <script>
     import {post} from '../../../helpers/api'
-    import Storage from '../../../store/storage'
+    import Swal from 'sweetalert2'
     export default{
         data(){
           return {
@@ -14,12 +14,20 @@
             post('/api/registration/confirmed',this.verify_token)
                 .then((response)=>{
                    if(response.data.verified){
-                       Storage.set('mail_verification_status','Email Verification Successful');
+                       Swal(
+                           'Great!',
+                           'Email Verification Successful',
+                           'success'
+                       );
                        this.$router.push('/login')
                    }
 
                 }).catch((errors)=>{
-                       Storage.set('mail_verification_status','Email Verification Failed');
+                        Swal({
+                            title: "Email Verification Failed",
+                            text: "Please Confirm Your Email Address",
+                            type: "warning"
+                        });
                        this.$router.push('/login')
             })
         }

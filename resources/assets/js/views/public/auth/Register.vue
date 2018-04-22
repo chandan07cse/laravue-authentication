@@ -52,7 +52,7 @@
 <script>
     import { Menu, Footer } from '../'
     import { post } from '../../../helpers/api'
-    import Storage from '../../../store/storage'
+    import Swal from 'sweetalert2'
 export default{
         components:{
             'menu-section': Menu,
@@ -68,7 +68,6 @@ export default{
             },
             error: {},
             isProcessing: false
-//            flash: Flash.state
         }
     },
     methods:{
@@ -76,9 +75,12 @@ export default{
             this.isProcessing = true;
             post('/api/register',this.form)
                 .then((response)=>{
-//                console.log(response);
                     if(response.data.registered){
-                        Storage.set('notify_mail_verification','Please Confirm Your Email Address');
+                        Swal({
+                            title: "Verify",
+                            text: "Please Confirm Your Email Address",
+                            type: "warning"
+                        });
                         this.$router.push('/login');
                     }
                     this.isProcessing = false;
